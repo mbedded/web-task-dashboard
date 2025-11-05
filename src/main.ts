@@ -1,9 +1,11 @@
-import { Notice, Plugin, WorkspaceLeaf } from 'obsidian';
+import { Plugin, requestUrl, WorkspaceLeaf } from 'obsidian';
 import { DEFAULT_SETTINGS, type TracksPluginSettings } from "./settings/Settings";
 import { TracksSettingTab } from "./settings/TracksSettingTab";
 import { MainViewModel, VIEW_TYPE_EXAMPLE } from "./views/MainViewModel";
 
 import { setupLocalization } from "./main.localization";
+import { TracksAdapter } from "./adapters/TracksAdapter";
+
 
 export default class TracksPlugin extends Plugin {
   settings: TracksPluginSettings;
@@ -11,7 +13,10 @@ export default class TracksPlugin extends Plugin {
   async onload() {
     this.registerView(
       VIEW_TYPE_EXAMPLE,
-      (leaf) => new MainViewModel(leaf)
+      (leaf) => {
+        const adapter = new TracksAdapter(this.settings.tracksUrl, this.settings.getBasicToken(), requestUrl);
+        return new MainViewModel(leaf, adapter);
+      }
     );
 
     this.addRibbonIcon('dice', 'Activate views', () => {

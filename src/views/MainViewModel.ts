@@ -3,42 +3,45 @@ import { ItemView, WorkspaceLeaf } from 'obsidian';
 // Import the MainView Svelte component and the `mount` and `unmount` methods.
 import MainView from './MainView.svelte';
 import { mount, unmount } from 'svelte';
+import type { ITodoAdapter } from "../adapters/ITodoAdapter";
 
 export const VIEW_TYPE_EXAMPLE = 'example-views';
 
 export class MainViewModel extends ItemView {
-	// A variable to hold on to the MainView instance mounted in this ItemView.
-	counter: ReturnType<typeof MainView> | undefined;
+  private _todoAdapter: ITodoAdapter;
 
-	constructor(leaf: WorkspaceLeaf) {
+	// A variable to hold on to the MainView instance mounted in this ItemView.
+	mainView: ReturnType<typeof MainView> | undefined;
+
+	constructor(leaf: WorkspaceLeaf, todoAdapter: ITodoAdapter) {
 		super(leaf);
-	}
+    this._todoAdapter = todoAdapter;
+  }
 
 	getViewType() {
 		return VIEW_TYPE_EXAMPLE;
 	}
 
 	getDisplayText() {
-		return 'Example views';
+		return 'Tracks Plugin';
 	}
 
 	async onOpen() {
 		// Attach the Svelte component to the ItemViews content element and provide the needed props.
-		this.counter = mount(MainView, {
+		this.mainView = mount(MainView, {
 			target: this.contentEl,
 			props: {
-				startCount: 5,
+        adapter: this._todoAdapter,
 			}
 		});
 
-		// Since the component instance is typed, the exported `increment` method is known to TypeScript.
-		this.counter.increment();
+    await this.mainView.initializeView();
 	}
 
 	async onClose() {
-		if (this.counter) {
+		if (this.mainView) {
 			// Remove the MainView from the ItemView.
-			unmount(this.counter);
+			await unmount(this.mainView);
 		}
 	}
 }

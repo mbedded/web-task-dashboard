@@ -20,14 +20,16 @@ export class Context {
 
 export class PingResult {
   isReachable: boolean;
-  isAuthenticationWorking: boolean;
+  isAuthenticated: boolean;
+  message: string;
 
-  constructor(isReachable: boolean, isAuthenticationWorking: boolean) {
+  constructor(isReachable: boolean, isAuthenticated: boolean, message: string = "") {
     this.isReachable = isReachable;
-    this.isAuthenticationWorking = isAuthenticationWorking;
+    this.isAuthenticated = isAuthenticated;
+    this.message = message;
   }
 
-  public isValid(): boolean {
-    return this.isReachable && this.isAuthenticationWorking;
+  public isOk(): boolean {
+    return this.isReachable && this.isAuthenticated;
   }
 }

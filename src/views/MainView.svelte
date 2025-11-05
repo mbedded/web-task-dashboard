@@ -1,43 +1,78 @@
 <script lang="ts">
-  import Nested from "./Nested.svelte";
+  import TodoContext from "./TodoContext.svelte";
+  import Spinner from "./Spinner.svelte";
+  import type { ITodoAdapter } from "../adapters/ITodoAdapter";
+  import Error from "./Error.svelte";
+  import { t } from "localizify";
 
   interface Props {
-    startCount: number;
+    adapter: ITodoAdapter;
   }
 
   let {
-    startCount
+    adapter,
   }: Props = $props();
 
-  let count = $state(startCount);
+  let loading = $state(true);
+
+  let hasError = $state(false);
+  let errorHeader = $state("error-header");
+  let errorMessage = $state("error-message");
 
   let components: string[] = $state([]);
 
-  export function increment() {
-    count += 1;
+  export async function initializeView() {
+    loading = true;
+    hasError = false;
+
+    debugger
+
+    // Check if service is reachable
+    var pingResult = await adapter.Ping();
+
+    console.log("result ping");
+    console.log(pingResult);
+
+    if (pingResult.isReachable == false) {
+      errorHeader = t("messages.service-unreachable-header");
+      errorMessage = t("messages.service-unreachable-description");
+    }
+    if (pingResult.isAuthenticated == false) {
+      errorHeader = t("messages.service-authentication-failed-header");
+      errorMessage = t("messages.service-authentication-failed-description");
+    }
+    if (pingResult.isOk() == false) {
+      loading = false;
+      hasError = true;
+
+      return;
+    }
+
+    hasError = true;
+    errorHeader = "alles ok!";
+    // Initialize view
+
+
   }
 
-  function addComponent() {
-    console.log("add component");
-    components.push(`Nested ${components.length}`);
-  }
 </script>
 
-<div class="number">
-  <span>My number is {count}!</span>
-</div>
-
-<button onclick={()=>addComponent()}>Add component</button>
-
-<p>COMPONENTS:</p>
-
-{#each components as item}
-  <Nested text={item}/>
-{/each}
+{#if loading}
+  <Spinner text="Loading tasks…"/>
+{/if}
 
 
-<style>
-  .number {
-    color: red;
-  }
-</style>
+{#if !loading}
+  COMPONENTS
+{/if}
+
+
+<!--{#each components as item}-->
+<!--  <TodoContext text={item}/>-->
+<!--{/each}-->
+{#if hasError}
+  <Error header={errorHeader} message={errorMessage}/>
+{/if}
+
+
+
