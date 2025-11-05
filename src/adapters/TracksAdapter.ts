@@ -93,7 +93,6 @@ export class TracksAdapter implements ITodoAdapter {
     const url = `${this.baseUrl}/contexts.xml`;
 
     const request = new Request(url, {
-      mode: 'no-cors',
       method: "GET",
       headers: {
         Authorization: `Basic ${this.basicToken}`

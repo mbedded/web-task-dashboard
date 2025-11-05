@@ -1,0 +1,49 @@
+/**
+ * This is a general helper-class for testing the adapters.
+ */
+import type { RequestUrlParam, RequestUrlResponsePromise } from "obsidian";
+import { test } from "@jest/globals";
+
+// Just added so Jest doesnt throw an error.
+test("ignore this file", () => {})
+
+export function emptyRequest(request: RequestUrlParam | string): RequestUrlResponsePromise {
+  return {} as RequestUrlResponsePromise;
+}
+
+export async function realFetchRequest(request: RequestUrlParam | string): RequestUrlResponsePromise {
+  const url = typeof request === "string" ? request : request.url;
+  const resp = await fetch(url, {
+    method: typeof request === "string" ? "GET" : request.method,
+    headers: typeof request === "string" ? undefined : request.headers,
+    body: typeof request === "string" ? undefined : request.body
+  });
+
+  // Read the body once and cache it to avoid body read multiple times exception.
+  const arrayBuffer = await resp.arrayBuffer();
+  const text = new TextDecoder().decode(arrayBuffer);
+  let json = null;
+  try {
+    json = JSON.parse(text);
+  } catch (ex) {
+    // do nothing
+  }
+
+  const response = {
+    status: resp.status,
+    headers: Promise.resolve(Object.fromEntries(resp.headers)),
+    arrayBuffer: arrayBuffer,
+    json: Promise.resolve(json),
+    text: Promise.resolve(text)
+  } as unknown as RequestUrlResponsePromise;
+
+  // Throw exception for non-2xx status codes like "fetch" does.
+  if (!resp.ok) {
+    const error = new Error(`HTTP ${resp.status}: ${resp.statusText}`) as any;
+    error.status = resp.status;
+    error.response = response;
+    throw error;
+  }
+
+  return response;
+}
