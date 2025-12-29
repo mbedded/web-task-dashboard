@@ -31,8 +31,8 @@ async function realFetchRequest(request: RequestUrlParam | string): RequestUrlRe
     status: resp.status,
     headers: Promise.resolve(Object.fromEntries(resp.headers)),
     arrayBuffer: arrayBuffer,
-    json: Promise.resolve(json),
-    text: Promise.resolve(text)
+    json: json,
+    text: text
   } as unknown as RequestUrlResponsePromise;
 
   // Throw exception for non-2xx status codes
@@ -68,54 +68,38 @@ describe("With empty token", () => {
   })
 })
 
+describe("With valid token", () => {
+  test("Instance can be created", () => {
+    const sut = getInstance(TOKEN_LOCALHOST, realFetchRequest);
 
-test("Instance can be created", () => {
+    expect(sut).toBeTruthy();
+  })
 
-  const aa = 55;
+  test("Ping should return authenticated", async () => {
+    const sut = getInstance(TOKEN_LOCALHOST, realFetchRequest);
+
+    const result = await sut.Ping();
+
+    expect(result.isReachable).toBeTruthy();
+    expect(result.isAuthenticated).toBeTruthy();
+    expect(result.isOk()).toBeTruthy();
+  })
+
+  test('Get contexts should return 2 items', async () => {
+    const sut = getInstance(TOKEN_LOCALHOST, realFetchRequest);
+
+    const result = await sut.GetContexts();
+
+    expect(result).toHaveLength(2);
+  });
+
+  test('Get todos should return 9 items', async () => {
+    const sut = getInstance(TOKEN_LOCALHOST, realFetchRequest);
+
+    const result = await sut.GetTodos();
+
+    expect(result).toHaveLength(9);
+  });
 })
 
-// describe("Invalid token", () => {
-//   test('Ping endpoint, should be invalid', async () => {
-//     const sut = getInstance(EMPTY_TOKEN);
-//
-//     const result = await sut.Ping();
-//
-//     expect(result.isOk()).toBe(false);
-//   });
-// })
-//
-// test('Create instance with invalid token', () => {
-//   const sut = getInvalidInstance()
-//
-//   expect(sut).toBeTruthy();
-// });
-//
-// test('Create instance', () => {
-//   const sut = getInstance();
-//
-//   expect(sut).toBeTruthy();
-// });
-//
-// test('Ping endpoint, should be valid', async () => {
-//   const sut = getInstance();
-//
-//   const result = await sut.Ping();
-//
-//   expect(result.isOk()).toBe(true);
-// });
-//
-// test('Get contexts should return 2 items', async () => {
-//   const sut = getInstance();
-//
-//   const result = await sut.GetContexts();
-//
-//   expect(result).toHaveLength(2);
-// });
-//
-// test('Get todos should return 9 items', async () => {
-//   const sut = getInstance();
-//
-//   const result = await sut.GetTodos();
-//
-//   expect(result).toHaveLength(9);
-// });
+

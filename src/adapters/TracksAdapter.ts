@@ -1,4 +1,4 @@
-import { Context, PingResult, TodoItem } from "./TodoClasses";
+import { ContextItem, PingResult, TodoItem } from "./TodoClasses";
 import { XMLParser } from 'fast-xml-parser';
 import type { ITodoAdapter } from "./ITodoAdapter";
 import { t } from "localizify";
@@ -58,7 +58,7 @@ export class TracksAdapter implements ITodoAdapter {
 
   public async Ping(): Promise<PingResult> {
     try {
-      let res = await this.doRequest({
+      let response = await this.doRequest({
         // url: `${this.baseUrl}/todos/1.xml`,
         url: `${this.baseUrl}/contexts.xml`,
         method: 'GET',
@@ -85,38 +85,33 @@ export class TracksAdapter implements ITodoAdapter {
         return new PingResult(true, false, message);
       }
 
-      return new PingResult(false, true);
+      return new PingResult(false, false);
     }
   }
 
-  public async GetContexts(): Promise<Context[]> {
-    const url = `${this.baseUrl}/contexts.xml`;
-
-    const request = new Request(url, {
-      mode: 'no-cors',
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${this.basicToken}`
-      }
-    });
-
+  public async GetContexts(): Promise<ContextItem[]> {
     let contextAsJson;
     try {
-      const response = await fetch(request);
-      const txt = await response.text();
+      let response = await this.doRequest({
+        url: `${this.baseUrl}/contexts.xml`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Basic ${this.basicToken}`
+        }
+      });
 
       // todo: filter for active contexts
-      contextAsJson = this.xmlParser.parse(txt);
+      contextAsJson = this.xmlParser.parse(response.text);
     } catch (e) {
       // todo: handle error
       console.error(e);
       return [];
     }
 
-    const items: Context[] = [];
+    const items: ContextItem[] = [];
 
     for (const item of contextAsJson.contexts.context) {
-      const ctx = new Context(item.id, item.name);
+      const ctx = new ContextItem(item.id, item.name);
       items.push(ctx);
     }
 
@@ -125,22 +120,18 @@ export class TracksAdapter implements ITodoAdapter {
 
 
   public async GetTodos(): Promise<TodoItem[]> {
-    const url = `${this.baseUrl}/todos.xml`;
-
-    const request = new Request(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${this.basicToken}`
-      }
-    });
-
     let todosAsJson;
     try {
-      const response = await fetch(request);
-      const txt = await response.text();
+      let response = await this.doRequest({
+        url: `${this.baseUrl}/todos.xml`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Basic ${this.basicToken}`
+        }
+      });
 
       // todo: filter for active todos
-      todosAsJson = this.xmlParser.parse(txt);
+      todosAsJson = this.xmlParser.parse(response.text);
     } catch (e) {
       // todo: handle error
       console.error(e);
