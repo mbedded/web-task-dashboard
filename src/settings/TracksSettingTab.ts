@@ -39,16 +39,19 @@ export class TracksSettingTab extends PluginSettingTab {
           this.plugin.settings.tracksUsername = value;
           await this.plugin.saveSettings();
         }));
-
+    
     new Setting(containerEl)
-      .setName( t("settings.tracks-token-header"))
+      .setName(t("settings.tracks-token-header"))
       .setDesc(t("settings.tracks-token-description"))
-      .addText(text => text
-        .setPlaceholder('')
-        .setValue(this.plugin.settings.tracksToken)
-        .onChange(async (value) => {
-          this.plugin.settings.tracksToken = value;
-          await this.plugin.saveSettings();
-        }));
+      .addText(text => {
+          text.setPlaceholder('')
+          text.setValue(this.plugin.settings.tracksToken)
+          text.onChange(async (value) => {
+            this.plugin.settings.tracksToken = value;
+            await this.plugin.saveSettings();
+          });
+          text.inputEl.type = "password";
+        }
+      );
   }
 }

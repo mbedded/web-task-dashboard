@@ -6,7 +6,6 @@ import type { RequestUrlParam, RequestUrlResponsePromise } from "obsidian";
 
 export class TracksAdapter implements ITodoAdapter {
 
-  private readonly displayInfo: string;
   private readonly xmlParser = new XMLParser({
     ignoreDeclaration: true
   });
@@ -20,48 +19,11 @@ export class TracksAdapter implements ITodoAdapter {
   constructor(private baseUrl: string,
               private basicToken: string,
               private doRequest: (request: RequestUrlParam | string) => RequestUrlResponsePromise) {
-    this.displayInfo = `TRACKS - ${this.baseUrl}`
   }
-
-  // public async Ping(): Promise<PingResult> {
-  //   // const url = `${this.baseUrl}/todos/1.xml`;
-  //   const url = `${this.baseUrl}/contexts.xml`;
-  //
-  //   const request = new Request(url, {
-  //     mode: 'no-cors',
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Basic ${this.basicToken}`
-  //     }
-  //   });
-  //
-  //   try {
-  //     await fetch(request);
-  //     return new PingResult(true, true);
-  //   } catch (ex) {
-  //     // 401 = auth failed
-  //     if (ex.status === 401) {
-  //       return new PingResult(true, false);
-  //     }
-  //
-  //     // 403 or 404 = auth ok but item not existing
-  //     if (ex.status === 403 || ex.status === 404) {
-  //       return new PingResult(true, false);
-  //     }
-  //
-  //     // 5xx = server error
-  //     if (ex.status >= 500 && ex.status <= 599) {
-  //       return new PingResult(false, false, "server returned http-500");
-  //     }
-  //
-  //     return new PingResult(false, false);
-  //   }
-  // }
 
   public async Ping(): Promise<PingResult> {
     try {
-      let res = await this.doRequest({
-        // url: `${this.baseUrl}/todos/1.xml`,
+      let response = await this.doRequest({
         url: `${this.baseUrl}/contexts.xml`,
         method: 'GET',
         headers: {
@@ -87,78 +49,61 @@ export class TracksAdapter implements ITodoAdapter {
         return new PingResult(true, false, message);
       }
 
-      return new PingResult(false, true);
+      return new PingResult(false, false);
     }
   }
 
-  public async GetContexts(): Promise<ContextItem[]> {
-    const url = `${this.baseUrl}/contexts.xml`;
-
-    const request = new Request(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${this.basicToken}`
-      }
-    });
-
+  public async GetActiveContexts(): Promise<ContextItem[]> {
     let contextAsJson;
     try {
-      const response = await fetch(request);
-      const txt = await response.text();
+      let response = await this.doRequest({
+        url: `${this.baseUrl}/contexts.xml?limit_to_active_todos=1`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Basic ${this.basicToken}`
+        }
+      });
 
       // todo: filter for active contexts
-      contextAsJson = this.xmlParser.parse(txt);
+      contextAsJson = this.xmlParser.parse(response.text);
     } catch (e) {
       // todo: handle error
-      console.error(e);
+      console.error("error getting contexts - " + e);
       return [];
     }
 
-    const items: ContextItem[] = [];
-
-    for (const item of contextAsJson.contexts.context) {
-      const ctx = new ContextItem(item.id, item.name);
-      items.push(ctx);
-    }
-
-    return items;
+    return contextAsJson.contexts.context
+      .filter((x: any) => x.state === "active")
+      .map((x: any) => new ContextItem(x.id, x.name))
+      .sort((a: any, b: any) => a.name.localeCompare(b.name));
   }
 
 
-  public async GetTodos(): Promise<TodoItem[]> {
-    const url = `${this.baseUrl}/todos.xml`;
-
-    const request = new Request(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${this.basicToken}`
-      }
-    });
-
+  public async GetActiveTodos(contextId: number): Promise<TodoItem[]> {
     let todosAsJson;
     try {
-      const response = await fetch(request);
-      const txt = await response.text();
+      let response = await this.doRequest({
+        url: `${this.baseUrl}/contexts/${contextId}/todos.xml?limit_to_active_todos=1`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Basic ${this.basicToken}`
+        }
+      });
 
       // todo: filter for active todos
-      todosAsJson = this.xmlParser.parse(txt);
+      todosAsJson = this.xmlParser.parse(response.text);
     } catch (e) {
       // todo: handle error
-      console.error(e);
+      console.error("error getting todos" + e);
       return [];
     }
 
-    const items: TodoItem[] = [];
-
-    for (const item of todosAsJson.todos.todo) {
-      const todo = new TodoItem(item.id, item.description);
-      items.push(todo);
+    if (Array.isArray(todosAsJson?.todos?.todo) == false){
+      return [];
     }
 
-    return items;
+    return todosAsJson.todos.todo
+      .map((x: any) => new TodoItem(x.id, x.description));
   }
 
-  public GetDisplayInfo(): string {
-    return this.displayInfo;
-  }
 }

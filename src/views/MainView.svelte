@@ -1,10 +1,10 @@
 <script lang="ts">
+  import type { ITodoAdapter } from "../adapters/ITodoAdapter";
+  import { t } from "localizify";
   import { ContextItem } from "../adapters/TodoClasses";
   import SpinnerComponent from "./SpinnerComponent.svelte";
   import ContextComponent from "./ContextComponent.svelte";
   import ErrorComponent from "./ErrorComponent.svelte";
-  import type { ITodoAdapter } from "../adapters/ITodoAdapter";
-  import { t } from "localizify";
 
   interface Props {
     adapter: ITodoAdapter;
@@ -22,16 +22,12 @@
 
   let contexts: ContextItem[] = $state([]);
 
-  // todo: use "onMount" instead of external call
   export async function initializeView() {
     loading = true;
     hasError = false;
 
     // Check if service is reachable
     var pingResult = await adapter.Ping();
-
-    console.log("result ping");
-    console.log(pingResult);
 
     if (pingResult.isReachable == false) {
       errorHeader = t("messages.service-unreachable-header");
@@ -49,7 +45,7 @@
     }
 
     // Initialize view
-    contexts = await adapter.GetContexts();
+    contexts = await adapter.GetActiveContexts();
 
     loading = false;
   }
@@ -76,6 +72,13 @@
 
 <!-- todo: localize view -->
 
+{#if loading}
+  <SpinnerComponent text="Loading contexts…"/>
+{/if}
+
+
+<!-- todo: localize view -->
+
 <div class="container">
   {#if loading}
     <SpinnerComponent text="Loading contexts…"/>
@@ -83,11 +86,11 @@
 
 
   {#if !loading && !hasError}
-  <!-- todo: show hint  when context == empty-->
+    <!-- todo: show hint  when context == empty-->
 
-  {#each contexts as context}
-    <ContextComponent adapter={adapter} context={context}/>
-  {/each}
+    {#each contexts as context}
+      <ContextComponent adapter={adapter} context={context}/>
+    {/each}
   {/if}
 
 
