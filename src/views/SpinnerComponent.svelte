@@ -7,10 +7,10 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-  }
 
-  .container span {
-    margin-left: 10px;
+    span {
+      margin-left: 10px;
+    }
   }
 
   .spinner {
