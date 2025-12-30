@@ -19,14 +19,15 @@ export default class TracksPlugin extends Plugin {
       }
     );
 
-    this.addRibbonIcon('dice', 'Activate views', () => {
+    // todo: change icon in sidebar, change tooltip
+    this.addRibbonIcon('square-check-big', 'Open Tracks-Plugin', () => {
       this.activateView();
     });
 
     await this.loadSettings();
     setupLocalization();
 
-    // todo: add command to open views
+    // todo: add command to open view instead of ribbon icon only
     // // This adds a simple command that can be triggered anywhere
     // this.addCommand({
     // 	id: 'open-sample-modal-simple',
