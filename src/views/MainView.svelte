@@ -61,21 +61,13 @@
   }
 
   .placeholder {
-    /* todo: use text muted and obsidian css for border */
     border-top: 1px solid var(--color-base-20);
     margin-top: auto;
     align-content: center;
-    color: var(--color-base-50);
+    color: var(--text-muted);
     font-size: 0.7em;
   }
 </style>
-
-<!-- todo: localize view -->
-
-{#if loading}
-  <SpinnerComponent text="Loading contexts…"/>
-{/if}
-
 
 <!-- todo: localize view -->
 
@@ -84,26 +76,24 @@
     <SpinnerComponent text="Loading contexts…"/>
   {/if}
 
-
-  {#if !loading && !hasError}
-    <!-- todo: show hint  when context == empty-->
-
-    {#each contexts as context}
-      <ContextComponent adapter={adapter} context={context}/>
-    {/each}
-  {/if}
-
-
   {#if hasError}
     <ErrorComponent header={errorHeader} message={errorMessage}/>
     <!-- todo: add reload button so user can press button instead of close/open tab -->
   {/if}
 
-  <!-- General information for the user -->
+  {#if !loading && !hasError}
+    <!-- todo: show hint  when context == empty-->
+    <!-- todo: add reload button when user adds context via web UI-->
+
+    {#each contexts as context}
+      <ContextComponent adapter={adapter} context={context} />
+    {/each}
+  {/if}
+
+  <!-- General information for the user at the bottom of the view -->
   <div class="placeholder">
     <p>Backend: {adapter.GetDisplayInfo()}</p>
   </div>
-
 </div>
 
 
