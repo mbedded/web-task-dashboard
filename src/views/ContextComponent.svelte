@@ -15,17 +15,19 @@
     adapter,
   }: Props = $props();
 
-  let loading = $state(false);
+  let isLoading = $state(false);
+  let isSaving = $state(false);
   let todos: TodoItem[] = $state([]);
+  let newTodoText = $state("");
 
   onMount(async () => {
     await initialize()
   });
 
   async function initialize() {
-    loading = true;
+    isLoading = true;
     todos = await adapter.GetActiveTodos(context.id);
-    loading = false;
+    isLoading = false;
   }
 
   async function markTodoAsDone(todo: TodoItem): Promise<boolean> {
@@ -38,6 +40,27 @@
     return result;
   }
 
+  async function OnTxtNewTodoKeyDown(e: KeyboardEvent) {
+    if (e.key !== "Enter") {
+      return;
+    }
+
+    if (!newTodoText.trim()) {
+      return;
+    }
+
+    isSaving = true;
+    try {
+      let newTodo = await adapter.CreateTodo(context.id, newTodoText);
+
+      if (newTodo) {
+        todos = [...todos, newTodo];
+        newTodoText = "";
+      }
+    } finally {
+      isSaving = false;
+    }
+  }
 </script>
 
 <style>
@@ -62,13 +85,17 @@
   .no-todos-existing {
     color: var(--text-muted);
   }
+
+  .txt-new-todo {
+    width: 100%;
+  }
 </style>
 
 <!-- todo: localize view -->
 <div class="container">
   <p class="header">{context.name} <span>({todos.length})</span></p>
 
-  {#if loading}
+  {#if isLoading}
     <SpinnerComponent text="Loading todos…"/>
   {/if}
 
@@ -81,6 +108,15 @@
     <p class="no-todos-existing">No todos existing</p>
   {/if}
 
-  <!-- todo: add textbox to add/create new todo -->
+  <input class="txt-new-todo"
+         type="text"
+         bind:value={newTodoText}
+         onkeydown={OnTxtNewTodoKeyDown}
+         placeholder="Add new todo. Confirm with RETURN…"
+         readonly={isSaving}/>
+
+  {#if isSaving}
+    <SpinnerComponent text="Saving..."/>
+  {/if}
 
 </div>

@@ -134,4 +134,33 @@ export class TracksAdapter implements ITodoAdapter {
     return true;
   }
 
+  public async CreateTodo(contextId: number, text: string): Promise<TodoItem> {
+    try {
+      const xmlBody = `<todo>
+    <description>${text}</description>
+    <context-id>${contextId}</context-id>
+  </todo>`;
+
+      let response = await this.doRequest({
+        url: `${this.baseUrl}/todos.xml`,
+        method: 'POST',
+        body: xmlBody,
+        headers: {
+          'Authorization': `Basic ${this.basicToken}`,
+          'Content-Type': 'text/xml'
+        }
+      });
+
+      let location = response.headers.location;
+      let parts = location.split('/');
+      let newId = parseInt(parts[parts.length - 1], 10);
+
+      return new TodoItem(newId, text);
+    } catch (e) {
+      // todo: handle error
+      console.error("error creating todo: " + e);
+      throw e;
+    }
+  }
+
 }

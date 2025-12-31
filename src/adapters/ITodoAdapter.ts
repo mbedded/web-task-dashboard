@@ -41,4 +41,13 @@ export interface ITodoAdapter {
    */
   ToggleTodoState(todoId: number): Promise<boolean>
 
+  /**
+   * Creates a new todo item in the specified context.
+   *
+   * @param {number} contextId - The ID of the context to add the todo to.
+   * @param {string} text - The text/content of the new todo.
+   * @return {Promise<TodoItem>} A promise that resolves to the newly created TodoItem.
+   */
+  CreateTodo(contextId: number, text: string): Promise<TodoItem>
+
 }
