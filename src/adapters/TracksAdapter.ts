@@ -163,4 +163,20 @@ export class TracksAdapter implements ITodoAdapter {
     }
   }
 
+  public async DeleteTodo(todoId: number): Promise<boolean> {
+    try {
+      await this.doRequest({
+        url: `${this.baseUrl}/todos/${todoId}.xml`,
+        method: "DELETE",
+        headers: {
+          "Authorization": `Basic ${this.basicToken}`,
+        }
+      });
+      return true;
+    } catch (e) {
+      console.error("error deleting todo: " + e);
+      return false;
+    }
+  }
+  
 }

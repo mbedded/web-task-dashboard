@@ -30,14 +30,20 @@
     isLoading = false;
   }
 
-  async function markTodoAsDone(todo: TodoItem): Promise<boolean> {
+  async function markTodoAsDone(todo: TodoItem): Promise<void> {
     let result = await adapter.ToggleTodoState(todo.id);
 
     if (result) {
       todos = todos.filter(x => x.id !== todo.id);
     }
+  }
 
-    return result;
+  async function deleteTodo(todo: TodoItem): Promise<void> {
+    let result = await adapter.DeleteTodo(todo.id);
+
+    if (result) {
+      todos = todos.filter(x => x.id !== todo.id);
+    }
   }
 
   async function OnTxtNewTodoKeyDown(e: KeyboardEvent) {
@@ -101,7 +107,9 @@
 
   {#if !!todos && todos.length }
     {#each todos as todo (todo.id)}
-      <TodoComponent todo={todo} markTodoAsDone={markTodoAsDone}/>
+      <TodoComponent todo={todo}
+                     markTodoAsDone={markTodoAsDone}
+                     deleteTodo={deleteTodo}/>
     {/each}
 
   {:else}

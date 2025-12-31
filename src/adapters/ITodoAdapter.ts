@@ -50,4 +50,12 @@ export interface ITodoAdapter {
    */
   CreateTodo(contextId: number, text: string): Promise<TodoItem>
 
+  /**
+   * Deletes a specific todo item.
+   *
+   * @param {number} todoId - The unique identifier of the todo item to delete.
+   * @return {Promise<boolean>} A promise that resolves to a boolean indicating whether the operation was successful.
+   */
+  DeleteTodo(todoId: number): Promise<boolean>
+
 }
