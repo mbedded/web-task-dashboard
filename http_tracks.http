@@ -1,0 +1,61 @@
+# This file contains the HTTP requests to interact with Tracks (tracksapp).
+@baseUrl = http://localhost:8000
+@username = mbedded
+@password = mbedded
+
+### Get all contexts
+GET {{baseUrl}}/contexts.xml
+Authorization: Basic {{username}} {{password}}
+
+### Get todos for context
+GET {{baseUrl}}/contexts/1/todos.xml
+Authorization: Basic {{username}} {{password}}
+
+### Get active todos for context
+GET {{baseUrl}}/contexts/1/todos.xml?limit_to_active_todos=1
+Authorization: Basic {{username}} {{password}}
+
+### Create context
+POST {{baseUrl}}/contexts.xml
+Authorization: Basic {{username}} {{password}}
+Content-Type: text/xml
+
+<context>
+  <name>New context</name>
+</context>
+
+### Delete context
+DELETE {{baseUrl}}/contexts/1.xml
+Authorization: Basic {{username}} {{password}}
+
+
+
+### Get all todos
+GET {{baseUrl}}/todos.xml
+Authorization: Basic {{username}} {{password}}
+
+### Get active todos
+GET {{baseUrl}}/todos.xml?limit_to_active_todos=1
+Authorization: Basic {{username}} {{password}}
+
+### Get one todo
+GET {{baseUrl}}/todos/1.xml
+Authorization: Basic {{username}} {{password}}
+
+### Toggle todo
+PUT {{baseUrl}}/todos/1/toggle_check.xml
+Authorization: Basic {{username}} {{password}}
+
+### Create todo
+POST {{baseUrl}}/todos.xml
+Authorization: Basic {{username}} {{password}}
+Content-Type: text/xml
+
+<todo>
+  <description>My new todo</description>
+  <context-id>1</context-id>
+</todo>
+
+### Delete todo
+DELETE {{baseUrl}}/todos/1.xml
+Authorization: Basic {{username}} {{password}}
