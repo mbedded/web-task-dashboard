@@ -102,12 +102,17 @@ export class TracksAdapter implements ITodoAdapter {
       return [];
     }
 
-    if (Array.isArray(todosAsJson?.todos?.todo) == false) {
+    // Array of a single object is returned as a single object
+    // instead of using an array. So we need 2 checks: Empty and array.
+    let todos = todosAsJson?.todos?.todo;
+    if (!todos) {
       return [];
     }
+    if (!Array.isArray(todos)) {
+      todos = [todos];
+    }
 
-    return todosAsJson.todos.todo
-      .map((x: any) => new TodoItem(x.id, x.description));
+    return todos.map((x: any) => new TodoItem(x.id, x.description));
   }
 
   public async ToggleTodoState(todoId: number): Promise<boolean> {

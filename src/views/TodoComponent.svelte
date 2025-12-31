@@ -13,8 +13,12 @@
     markTodoAsDone
   }: Props = $props();
 
+  let actionRunning = $state(false);
+
   async function OnClickDone() {
-    const success = await markTodoAsDone(todo);
+    actionRunning = true;
+    await markTodoAsDone(todo);
+    actionRunning = false;
   }
 </script>
 
@@ -34,17 +38,36 @@
   .description {
     margin-left: 5px;
     vertical-align: center;
-    /* todo: align vertical center */
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--background-modifier-border);
+    border-top: 2px solid var(--interactive-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 </style>
 
 <div class="container">
   <button type="button" class="btn-done" onclick={OnClickDone}>
-    <!-- todo: add icon or something-->
-    <!--    <Check/>-->
-    ✓
+    {#if !actionRunning}
+      ✓
+    {:else}
+      <div class="spinner"></div>
+    {/if}
   </button>
-
   <span class="description">{todo.description}</span>
 </div>
 

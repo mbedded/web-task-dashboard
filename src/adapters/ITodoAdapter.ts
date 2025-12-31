@@ -33,7 +33,6 @@ export interface ITodoAdapter {
    */
   GetActiveTodos(contextId: number): Promise<TodoItem[]>
 
-
   /**
    * Toggles the state of a specific todo item between active and completed.
    *

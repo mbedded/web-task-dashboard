@@ -28,10 +28,14 @@
     loading = false;
   }
 
-  async function markAsDone(todo: TodoItem): Promise<boolean> {
-    var result = await adapter.ToggleTodoState(todo.id);
+  async function markTodoAsDone(todo: TodoItem): Promise<boolean> {
+    let result = await adapter.ToggleTodoState(todo.id);
 
-    return Promise.resolve(true);
+    if (result) {
+      todos = todos.filter(x => x.id !== todo.id);
+    }
+
+    return result;
   }
 
 </script>
@@ -69,8 +73,8 @@
   {/if}
 
   {#if !!todos && todos.length }
-    {#each todos as todo}
-      <TodoComponent todo={todo} markTodoAsDone={markAsDone}/>
+    {#each todos as todo (todo.id)}
+      <TodoComponent todo={todo} markTodoAsDone={markTodoAsDone}/>
     {/each}
 
   {:else}
