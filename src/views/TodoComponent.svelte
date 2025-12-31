@@ -42,8 +42,8 @@
 
   .spinner {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border: 2px solid var(--background-modifier-border);
     border-top: 2px solid var(--interactive-accent);
     border-radius: 50%;
