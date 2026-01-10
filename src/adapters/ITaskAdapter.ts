@@ -1,10 +1,10 @@
-import { ContextItem, PingResult, TodoItem } from "./TodoClasses";
+import { ContextItem, PingResult, TaskItem } from "./TodoClasses";
 
 /**
  * This interface defines the general interfaces for adapters, so any
  * task-list-endpoint could be added in the future.
  */
-export interface ITodoAdapter {
+export interface ITaskAdapter {
 
   /**
    * Returns a human-readable name for the adapter.
@@ -29,9 +29,9 @@ export interface ITodoAdapter {
   /**
    * Retrieves a list of todo items for a given context.
    *
-   * @return {Promise<TodoItem[]>} A promise that resolves to an array of Todo objects.
+   * @return {Promise<TaskItem[]>} A promise that resolves to an array of Todo objects.
    */
-  getActiveTodos(contextId: number): Promise<TodoItem[]>
+  getActiveTasks(contextId: number): Promise<TaskItem[]>
 
   /**
    * Toggles the state of a specific todo item between active and completed.
@@ -39,16 +39,16 @@ export interface ITodoAdapter {
    * @param {number} todoId - The unique identifier of the todo item to toggle..
    * @return {Promise<boolean>} A promise that resolves to a boolean indicating whether the operation was successful.
    */
-  toggleTodoState(todoId: number): Promise<boolean>
+  toggleTaskState(todoId: number): Promise<boolean>
 
   /**
    * Creates a new todo item in the specified context.
    *
    * @param {number} contextId - The ID of the context to add the todo to.
    * @param {string} text - The text/content of the new todo.
-   * @return {Promise<TodoItem>} A promise that resolves to the newly created TodoItem.
+   * @return {Promise<TaskItem>} A promise that resolves to the newly created TodoItem.
    */
-  createTodo(contextId: number, text: string): Promise<TodoItem>
+  createTask(contextId: number, text: string): Promise<TaskItem>
 
   /**
    * Deletes a specific todo item.
@@ -56,6 +56,6 @@ export interface ITodoAdapter {
    * @param {number} todoId - The unique identifier of the todo item to delete.
    * @return {Promise<boolean>} A promise that resolves to a boolean indicating whether the operation was successful.
    */
-  deleteTodo(todoId: number): Promise<boolean>
+  deleteTask(todoId: number): Promise<boolean>
 
 }

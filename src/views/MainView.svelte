@@ -1,13 +1,14 @@
 <script lang="ts">
-  import type { ITodoAdapter } from "../adapters/ITodoAdapter";
+  import type { ITaskAdapter } from "../adapters/ITaskAdapter";
   import { t } from "../localizer/localizer";
-  import { ContextItem } from "../adapters/TodoClasses";
+  import { ContextItem } from "../adapters/TaskClasses";
   import SpinnerComponent from "./SpinnerComponent.svelte";
   import ContextComponent from "./ContextComponent.svelte";
   import ErrorComponent from "./ErrorComponent.svelte";
+  import { onMount } from "svelte";
 
   interface Props {
-    adapter: ITodoAdapter;
+    adapter: ITaskAdapter;
   }
 
   let {
@@ -21,7 +22,7 @@
 
   let contexts: ContextItem[] = $state([]);
 
-  export async function initializeView() {
+  onMount(async () => {
     loading = true;
     hasError = false;
 
@@ -45,10 +46,8 @@
 
     // Initialize view
     contexts = await adapter.getActiveContexts();
-
     loading = false;
-  }
-
+  });
 </script>
 
 <style>
@@ -69,7 +68,6 @@
 </style>
 
 <!-- todo: localize view -->
-
 <div class="container">
   {#if loading}
     <SpinnerComponent text="Loading contexts…"/>
@@ -85,7 +83,7 @@
     <!-- todo: add reload button when user adds context via web UI-->
 
     {#each contexts as context}
-      <ContextComponent adapter={adapter} context={context} />
+      <ContextComponent adapter={adapter} context={context}/>
     {/each}
   {/if}
 

@@ -1,4 +1,5 @@
-export class TodoItem {
+// This file contains the data-classes to interact with any service.
+export class TaskItem {
   public readonly id: number;
   public readonly description: string;
 

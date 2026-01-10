@@ -1,13 +1,13 @@
-import { ContextItem, PingResult, TodoItem } from "./TodoClasses";
+import { ContextItem, PingResult, TaskItem } from "./TaskClasses";
 import { XMLParser } from "fast-xml-parser";
-import type { ITodoAdapter } from "./ITodoAdapter";
+import type { ITaskAdapter } from "./ITaskAdapter";
 import { t } from "../localizer/localizer";
 import type { RequestUrlParam, RequestUrlResponsePromise } from "obsidian";
 
 /**
  * This adapter implements the ITodoAdapter interface for Tracks.
  */
-export class TracksAdapter implements ITodoAdapter {
+export class TracksAdapter implements ITaskAdapter {
 
   private readonly xmlParser = new XMLParser({
     ignoreDeclaration: true
@@ -95,7 +95,7 @@ export class TracksAdapter implements ITodoAdapter {
   }
 
 
-  public async getActiveTodos(contextId: number): Promise<TodoItem[]> {
+  public async getActiveTasks(contextId: number): Promise<TaskItem[]> {
     let todosAsJson;
     try {
       const response = await this.doRequest({
@@ -123,10 +123,10 @@ export class TracksAdapter implements ITodoAdapter {
       todos = [todos];
     }
 
-    return todos.map((x: any) => new TodoItem(x.id, x.description));
+    return todos.map((x: any) => new TaskItem(x.id, x.description));
   }
 
-  public async toggleTodoState(todoId: number): Promise<boolean> {
+  public async toggleTaskState(todoId: number): Promise<boolean> {
     try {
       await this.doRequest({
         // We can use this shortcut to toggle the state between active and completed.
@@ -145,7 +145,7 @@ export class TracksAdapter implements ITodoAdapter {
     return true;
   }
 
-  public async createTodo(contextId: number, text: string): Promise<TodoItem> {
+  public async createTask(contextId: number, text: string): Promise<TaskItem> {
     try {
       const xmlBody = `<todo>
     <description>${text}</description>
@@ -166,7 +166,7 @@ export class TracksAdapter implements ITodoAdapter {
       const parts = location.split("/");
       const newId = parseInt(parts[parts.length - 1], 10);
 
-      return new TodoItem(newId, text);
+      return new TaskItem(newId, text);
     } catch (e) {
       // todo: handle error
       console.error("error creating todo: " + e);
@@ -174,7 +174,7 @@ export class TracksAdapter implements ITodoAdapter {
     }
   }
 
-  public async deleteTodo(todoId: number): Promise<boolean> {
+  public async deleteTask(todoId: number): Promise<boolean> {
     try {
       await this.doRequest({
         url: `${this.baseUrl}/todos/${todoId}.xml`,

@@ -1,7 +1,7 @@
 import { ItemView, WorkspaceLeaf } from "obsidian";
 import { mount, unmount } from "svelte";
 import MainView from "./MainView.svelte";
-import type { ITodoAdapter } from "../adapters/ITodoAdapter";
+import type { ITaskAdapter } from "../adapters/ITaskAdapter";
 
 export const VIEW_TYPE_MAIN = "main-view";
 
@@ -10,11 +10,11 @@ export const VIEW_TYPE_MAIN = "main-view";
  * It shows the todos and allows interacting with them.
  */
 export class MainViewModel extends ItemView {
-  private readonly todoAdapter: ITodoAdapter;
+  private readonly todoAdapter: ITaskAdapter;
 
 	mainView: ReturnType<typeof MainView> | undefined;
 
-	constructor(leaf: WorkspaceLeaf, todoAdapter: ITodoAdapter) {
+	constructor(leaf: WorkspaceLeaf, todoAdapter: ITaskAdapter) {
 		super(leaf);
     this.todoAdapter = todoAdapter;
   }

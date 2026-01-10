@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { type ContextItem, TodoItem } from "../adapters/TodoClasses";
-  import type { ITodoAdapter } from "../adapters/ITodoAdapter";
+  import { type ContextItem, TaskItem } from "../adapters/TaskClasses";
+  import type { ITaskAdapter } from "../adapters/ITaskAdapter";
   import { onMount } from "svelte";
   import SpinnerComponent from "./SpinnerComponent.svelte";
-  import TodoComponent from "./TodoComponent.svelte";
+  import TodoComponent from "./TaskComponent.svelte";
 
   interface Props {
-    adapter: ITodoAdapter;
+    adapter: ITaskAdapter;
     context: ContextItem;
   }
 
@@ -17,7 +17,7 @@
 
   let isLoading = $state(false);
   let isSaving = $state(false);
-  let todos: TodoItem[] = $state([]);
+  let todos: TaskItem[] = $state([]);
   let newTodoText = $state("");
 
   onMount(async () => {
@@ -26,20 +26,20 @@
 
   async function initialize() {
     isLoading = true;
-    todos = await adapter.getActiveTodos(context.id);
+    todos = await adapter.getActiveTasks(context.id);
     isLoading = false;
   }
 
-  async function markTodoAsDone(todo: TodoItem): Promise<void> {
-    let result = await adapter.toggleTodoState(todo.id);
+  async function markTodoAsDone(todo: TaskItem): Promise<void> {
+    let result = await adapter.toggleTaskState(todo.id);
 
     if (result) {
       todos = todos.filter(x => x.id !== todo.id);
     }
   }
 
-  async function deleteTodo(todo: TodoItem): Promise<void> {
-    let result = await adapter.deleteTodo(todo.id);
+  async function deleteTodo(todo: TaskItem): Promise<void> {
+    let result = await adapter.deleteTask(todo.id);
 
     if (result) {
       todos = todos.filter(x => x.id !== todo.id);
@@ -57,7 +57,7 @@
 
     isSaving = true;
     try {
-      let newTodo = await adapter.createTodo(context.id, newTodoText);
+      let newTodo = await adapter.createTask(context.id, newTodoText);
 
       if (newTodo) {
         todos = [...todos, newTodo];

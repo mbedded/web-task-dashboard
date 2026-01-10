@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { TodoItem } from "../adapters/TodoClasses";
+  import { TaskItem } from "../adapters/TaskClasses";
 
   interface Props {
     // The entry to display and interact with.
-    todo: TodoItem;
+    todo: TaskItem;
     // Function (callback to parent) to mark an entry as done.
-    markTodoAsDone: (x: TodoItem) => Promise<void>
+    markTodoAsDone: (x: TaskItem) => Promise<void>
     // Function (callback to parent) to delete entry.
-    deleteTodo: (x: TodoItem) => Promise<void>
+    deleteTodo: (x: TaskItem) => Promise<void>
   }
 
   let {
