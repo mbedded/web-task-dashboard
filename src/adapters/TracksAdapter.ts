@@ -1,7 +1,7 @@
 import { ContextItem, PingResult, TodoItem } from "./TodoClasses";
 import { XMLParser } from 'fast-xml-parser';
 import type { ITodoAdapter } from "./ITodoAdapter";
-import { t } from "localizify";
+import { t } from "../localizer/localizer";
 import type { RequestUrlParam, RequestUrlResponsePromise } from "obsidian";
 
 /**

@@ -1,6 +1,6 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
 import TracksPlugin from "../main";
-import { t } from "localizify"
+import { t } from "../localizer/localizer";
 
 export class TracksSettingTab extends PluginSettingTab {
   plugin: TracksPlugin;

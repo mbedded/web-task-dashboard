@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ITodoAdapter } from "../adapters/ITodoAdapter";
-  import { t } from "localizify";
+  import { t } from "../localizer/localizer";
   import { ContextItem } from "../adapters/TodoClasses";
   import SpinnerComponent from "./SpinnerComponent.svelte";
   import ContextComponent from "./ContextComponent.svelte";

@@ -1,24 +1,24 @@
 /**
  * Localization has been outsourced to this file to keep the code and implementation together.
  * Especially the header and method may become long when more languages are added.
- * "Localizify" provides a singleton, so it's safe to configure it here.
+ * "localizer" provides a singleton, so it's safe to configure it here.
  */
-
-import localizify from "localizify";
-import lang_en from "../locales/locale.en.json";
+import { LocalizerParser } from "./localizer/localizerParser";
+import localizer from "./localizer/localizer";
 
 const FALLBACK_LANGUAGE: string = "en"
 
 export function setupLocalization() {
   // Setup languages
-  localizify
-    .add("en", lang_en);
+  const parsedTexts = new LocalizerParser().getParsedFiles();
+  localizer.initialize(parsedTexts);
+
 
   // Get UI language or fallback
-  let locale = window.localStorage.getItem('language');
-  if (!locale || !localizify.isLocale(locale)) {
+  let locale = window.localStorage.getItem("language");
+  if (!locale || !localizer.isLocale(locale)) {
     locale = FALLBACK_LANGUAGE;
   }
 
-  localizify.setLocale(locale);
+  localizer.setLocale(locale);
 }
