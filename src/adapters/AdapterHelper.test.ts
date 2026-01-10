@@ -11,6 +11,10 @@ export function emptyRequest(request: RequestUrlParam | string): RequestUrlRespo
   return {} as RequestUrlResponsePromise;
 }
 
+/**
+ * This method was created to use "fetch()" in tests but use the type given by Obsidian.
+ */
+// @ts-ignore, because RequestUrlResponsePromise is already a Promise<T>
 export async function realFetchRequest(request: RequestUrlParam | string): RequestUrlResponsePromise {
   const url = typeof request === "string" ? request : request.url;
   const resp = await fetch(url, {
@@ -25,12 +29,13 @@ export async function realFetchRequest(request: RequestUrlParam | string): Reque
   let json = null;
   try {
     json = JSON.parse(text);
-  } catch (ex) {
+  } catch {
     // do nothing
   }
 
   const response = {
     status: resp.status,
+    // @ts-ignore, because 'resp.headers' works despite the error message
     headers: Promise.resolve(Object.fromEntries(resp.headers)),
     arrayBuffer: arrayBuffer,
     json: Promise.resolve(json),

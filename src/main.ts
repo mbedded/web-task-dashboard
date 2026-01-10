@@ -1,4 +1,4 @@
-import { Plugin, requestUrl, WorkspaceLeaf } from 'obsidian';
+import { Plugin, requestUrl, WorkspaceLeaf } from "obsidian";
 import { DEFAULT_SETTINGS, type TracksPluginSettings } from "./settings/Settings";
 import { TracksSettingTab } from "./settings/TracksSettingTab";
 import { MainViewModel, VIEW_TYPE_MAIN } from "./views/MainViewModel";
@@ -20,7 +20,7 @@ export default class TracksPlugin extends Plugin {
     );
 
     // todo: change icon in sidebar, change tooltip
-    this.addRibbonIcon('square-check-big', 'Open Tracks-Plugin', () => {
+    this.addRibbonIcon("square-check-big", "Open Tracks-Plugin", () => {
       this.activateView();
     });
 
@@ -38,8 +38,8 @@ export default class TracksPlugin extends Plugin {
     // });
     this.addCommand({
       // todo: change name/localize
-      id: 'open-plugin-tab',
-      name: 'Open todo frontend',
+      id: "open-plugin-tab",
+      name: "Open todo frontend",
       callback: () => {
         this.activateView();
       }

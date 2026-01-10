@@ -24,6 +24,7 @@
     await markTodoAsDone(todo);
     doneRunning = false;
   }
+
   async function OnClickDelete() {
     deleteRunning = true;
     await deleteTodo(todo);
@@ -37,10 +38,14 @@
     align-items: center;
     margin-bottom: 5px;
     position: relative;
-  }
 
-  .container:hover .btn-delete {
-    opacity: 1;
+    &:hover {
+      background-color: var(--color-base-30);
+
+      .btn-delete {
+        opacity: 1;
+      }
+    }
   }
 
   .btn-done {

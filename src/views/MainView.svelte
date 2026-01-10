@@ -15,7 +15,6 @@
   }: Props = $props();
 
   let loading = $state(true);
-
   let hasError = $state(false);
   let errorHeader = $state("error-header");
   let errorMessage = $state("error-message");

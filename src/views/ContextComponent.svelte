@@ -46,7 +46,7 @@
     }
   }
 
-  async function OnTxtNewTodoKeyDown(e: KeyboardEvent) {
+  async function onTxtNewTodoKeyDown(e: KeyboardEvent) {
     if (e.key !== "Enter") {
       return;
     }
@@ -119,7 +119,7 @@
   <input class="txt-new-todo"
          type="text"
          bind:value={newTodoText}
-         onkeydown={OnTxtNewTodoKeyDown}
+         onkeydown={onTxtNewTodoKeyDown}
          placeholder="Add new todo. Confirm with RETURN…"
          readonly={isSaving}/>
 

@@ -30,7 +30,7 @@ export class TracksAdapter implements ITodoAdapter {
 
   public async ping(): Promise<PingResult> {
     try {
-      let response = await this.doRequest({
+      const response = await this.doRequest({
         url: `${this.baseUrl}/contexts.xml`,
         method: 'GET',
         headers: {
@@ -63,8 +63,8 @@ export class TracksAdapter implements ITodoAdapter {
   public async getActiveContexts(): Promise<ContextItem[]> {
     let contextAsJson;
     try {
-      let response = await this.doRequest({
-        url: `${this.baseUrl}/contexts.xml?limit_to_active_todos=1`,
+      const response = await this.doRequest({
+        url: `${this.baseUrl}/contexts.xml`,
         method: "GET",
         headers: {
           "Authorization": `Basic ${this.basicToken}`
@@ -88,7 +88,7 @@ export class TracksAdapter implements ITodoAdapter {
   public async getActiveTodos(contextId: number): Promise<TodoItem[]> {
     let todosAsJson;
     try {
-      let response = await this.doRequest({
+      const response = await this.doRequest({
         url: `${this.baseUrl}/contexts/${contextId}/todos.xml?limit_to_active_todos=1`,
         method: 'GET',
         headers: {
@@ -142,7 +142,7 @@ export class TracksAdapter implements ITodoAdapter {
     <context-id>${contextId}</context-id>
   </todo>`;
 
-      let response = await this.doRequest({
+      const response = await this.doRequest({
         url: `${this.baseUrl}/todos.xml`,
         method: 'POST',
         body: xmlBody,
@@ -152,9 +152,9 @@ export class TracksAdapter implements ITodoAdapter {
         }
       });
 
-      let location = response.headers.location;
-      let parts = location.split('/');
-      let newId = parseInt(parts[parts.length - 1], 10);
+      const location = response.headers.location;
+      const parts = location.split('/');
+      const newId = parseInt(parts[parts.length - 1], 10);
 
       return new TodoItem(newId, text);
     } catch (e) {
