@@ -1,5 +1,5 @@
 import { ContextItem, PingResult, TodoItem } from "./TodoClasses";
-import { XMLParser } from 'fast-xml-parser';
+import { XMLParser } from "fast-xml-parser";
 import type { ITodoAdapter } from "./ITodoAdapter";
 import { t } from "../localizer/localizer";
 import type { RequestUrlParam, RequestUrlResponsePromise } from "obsidian";
@@ -32,9 +32,9 @@ export class TracksAdapter implements ITodoAdapter {
     try {
       const response = await this.doRequest({
         url: `${this.baseUrl}/contexts.xml`,
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Basic ${this.basicToken}`
+          "Authorization": `Basic ${this.basicToken}`
         }
       });
 
@@ -90,9 +90,9 @@ export class TracksAdapter implements ITodoAdapter {
     try {
       const response = await this.doRequest({
         url: `${this.baseUrl}/contexts/${contextId}/todos.xml?limit_to_active_todos=1`,
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Basic ${this.basicToken}`
+          "Authorization": `Basic ${this.basicToken}`
         }
       });
 
@@ -144,16 +144,16 @@ export class TracksAdapter implements ITodoAdapter {
 
       const response = await this.doRequest({
         url: `${this.baseUrl}/todos.xml`,
-        method: 'POST',
+        method: "POST",
         body: xmlBody,
         headers: {
-          'Authorization': `Basic ${this.basicToken}`,
-          'Content-Type': 'text/xml'
+          "Authorization": `Basic ${this.basicToken}`,
+          "Content-Type": "text/xml"
         }
       });
 
       const location = response.headers.location;
-      const parts = location.split('/');
+      const parts = location.split("/");
       const newId = parseInt(parts[parts.length - 1], 10);
 
       return new TodoItem(newId, text);

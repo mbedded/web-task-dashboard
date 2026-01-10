@@ -19,10 +19,10 @@ export class TracksSettingTab extends PluginSettingTab {
       .setName(t("settings.tracks-url-header"))
       .setDesc(t("settings.tracks-url-description"))
       .addText(text => text
-        .setPlaceholder('http://localhost:3000')
+        .setPlaceholder("http://localhost:3000")
         .setValue(this.plugin.settings.tracksUrl)
         .onChange(async (value) => {
-          if (value.endsWith('/')) {
+          if (value.endsWith("/")) {
             value = value.slice(0, -1);
           }
 
@@ -34,7 +34,7 @@ export class TracksSettingTab extends PluginSettingTab {
       .setName(t("settings.tracks-username-header"))
       .setDesc(t("settings.tracks-username-description"))
       .addText(text => text
-        .setPlaceholder('example')
+        .setPlaceholder("example")
         .setValue(this.plugin.settings.tracksUsername)
         .onChange(async (value) => {
           this.plugin.settings.tracksUsername = value;
@@ -45,7 +45,7 @@ export class TracksSettingTab extends PluginSettingTab {
       .setName(t("settings.tracks-token-header"))
       .setDesc(t("settings.tracks-token-description"))
       .addText(text => {
-          text.setPlaceholder('')
+          text.setPlaceholder("")
           text.setValue(this.plugin.settings.tracksToken)
           text.onChange(async (value) => {
             this.plugin.settings.tracksToken = value;

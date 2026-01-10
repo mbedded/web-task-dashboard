@@ -1,9 +1,9 @@
-import { ItemView, WorkspaceLeaf } from 'obsidian';
-import { mount, unmount } from 'svelte';
-import MainView from './MainView.svelte';
+import { ItemView, WorkspaceLeaf } from "obsidian";
+import { mount, unmount } from "svelte";
+import MainView from "./MainView.svelte";
 import type { ITodoAdapter } from "../adapters/ITodoAdapter";
 
-export const VIEW_TYPE_MAIN = 'main-view';
+export const VIEW_TYPE_MAIN = "main-view";
 
 /**
  * This class represents the main view of the plugin.
@@ -25,7 +25,7 @@ export class MainViewModel extends ItemView {
 
 	getDisplayText() {
     // todo: verify name. Localization? Read name from manifest?
-		return 'Tracks Plugin';
+		return "Tracks Plugin";
 	}
 
 	async onOpen() {
