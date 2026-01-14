@@ -12,37 +12,35 @@ export const VIEW_TYPE_MAIN = "main-view";
 export class MainViewModel extends ItemView {
   private readonly todoAdapter: ITaskAdapter;
 
-	mainView: ReturnType<typeof MainView> | undefined;
+  mainView: ReturnType<typeof MainView> | undefined;
 
-	constructor(leaf: WorkspaceLeaf, todoAdapter: ITaskAdapter) {
-		super(leaf);
+  constructor(leaf: WorkspaceLeaf, todoAdapter: ITaskAdapter) {
+    super(leaf);
     this.todoAdapter = todoAdapter;
   }
 
-	getViewType() {
-		return VIEW_TYPE_MAIN;
-	}
+  getViewType() {
+    return VIEW_TYPE_MAIN;
+  }
 
-	getDisplayText() {
+  getDisplayText() {
     // todo: verify name. Localization? Read name from manifest?
-		return "Tracks Plugin";
-	}
+    return "Tracks Plugin";
+  }
 
-	async onOpen() {
-		// Attach the Svelte component to the ItemViews content element and provide the needed props.
-		this.mainView = mount(MainView, {
-			target: this.contentEl,
-			props: {
+  async onOpen() {
+    // Attach the Svelte component to the ItemViews content element and provide the needed props.
+    this.mainView = mount(MainView, {
+      target: this.contentEl,
+      props: {
         adapter: this.todoAdapter,
-			}
-		});
+      }
+    });
+  }
 
-    await this.mainView.initializeView();
-	}
-
-	async onClose() {
-		if (this.mainView) {
-			await unmount(this.mainView);
-		}
-	}
+  async onClose() {
+    if (this.mainView) {
+      await unmount(this.mainView);
+    }
+  }
 }

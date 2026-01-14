@@ -1,7 +1,8 @@
 {
   "settings": {
-    "tracks-token-description": "Your token to access Tracks. You can find it under Settings > Authentication",
-    "tracks-token-header": "Token",
+    "header-tracks-endpoint" : "Tracks endpoint",
+    "tracks-password-description": "Your passwordto access Tracks. The token is readonly and has no rights to to create todos. Please note that the password is stored in plain text for now!",
+    "tracks-password-header": "Password",
     "tracks-url-description": "Base URL of your instance of Tracks.",
     "tracks-url-header": "Tracks URL",
     "tracks-username-description": "Your username to access Tracks.",

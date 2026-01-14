@@ -1,11 +1,11 @@
 {
-  "id": "sample-plugin",
-  "name": "Sample Plugin",
+  "id": "mbedded-tracks-plugin",
+  "name": "DEV TRACKS Plugin",
   "version": "1.0.0",
-  "minAppVersion": "0.15.0",
-  "description": "Demonstrates some of the capabilities of the Obsidian API.",
-  "author": "Obsidian",
-  "authorUrl": "https://obsidian.md",
-  "fundingUrl": "https://obsidian.md/pricing",
+  "minAppVersion": "1.11.0",
+  "description": "DEV version of Obsidian Tracks.",
+  "author": "mbedded",
+  "authorUrl": "https://mbuege.com",
+  "fundingUrl": "https://ko-fi.com/mbedded",
   "isDesktopOnly": false
 }

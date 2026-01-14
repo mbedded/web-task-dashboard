@@ -3,8 +3,8 @@
  * Especially the header and method may become long when more languages are added.
  * "localizer" provides a singleton, so it's safe to configure it here.
  */
-import { LocalizerParser } from "./localizer/localizerParser";
-import localizer from "./localizer/localizer";
+import { LocalizerParser } from "./localizer/LocalizerParser";
+import localizer from "./localizer/Localizer";
 
 const FALLBACK_LANGUAGE: string = "en"
 

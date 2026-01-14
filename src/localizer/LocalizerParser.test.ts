@@ -1,5 +1,5 @@
 import { expect, test } from "@jest/globals";
-import { LocalizerParser } from "./localizerParser";
+import { LocalizerParser } from "./LocalizerParser";
 
 test("Ensure files are parsed correctly", () => {
   const sut = new LocalizerParser();

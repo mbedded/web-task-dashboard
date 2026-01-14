@@ -1,9 +1,9 @@
 import { Plugin, requestUrl, WorkspaceLeaf } from "obsidian";
 import { DEFAULT_SETTINGS, type TracksPluginSettings } from "./settings/Settings";
-import { TracksSettingTab } from "./settings/TracksSettingTab";
 import { MainViewModel, VIEW_TYPE_MAIN } from "./views/MainViewModel";
 import { initializeLocalization } from "./main.localization";
 import { TracksAdapter } from "./adapters/TracksAdapter";
+import { SettingTab } from "./settings/SettingTab";
 
 export default class TracksPlugin extends Plugin {
   settings: TracksPluginSettings;
@@ -28,7 +28,7 @@ export default class TracksPlugin extends Plugin {
     this.registerCommands();
 
     // This adds a settings tab so the user can configure various aspects of the plugin
-    this.addSettingTab(new TracksSettingTab(this.app, this));
+    this.addSettingTab(new SettingTab(this.app, this));
 
     // todo: add background checks for new todos in the background? Maybe only if window is open?
     // When registering intervals, this function will automatically clear the interval when the plugin is disabled.

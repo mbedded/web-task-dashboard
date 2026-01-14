@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ITaskAdapter } from "../adapters/ITaskAdapter";
-  import { t } from "../localizer/localizer";
+  import { t } from "../localizer/Localizer";
   import { ContextItem } from "../adapters/TaskClasses";
   import SpinnerComponent from "./SpinnerComponent.svelte";
   import ContextComponent from "./ContextComponent.svelte";

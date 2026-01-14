@@ -1,4 +1,4 @@
-import { ContextItem, PingResult, TaskItem } from "./TodoClasses";
+import { ContextItem, PingResult, TaskItem } from "./TaskClasses";
 
 /**
  * This interface defines the general interfaces for adapters, so any

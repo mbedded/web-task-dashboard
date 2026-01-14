@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import localizer from "./localizer";
+import localizer from "./Localizer";
 
 beforeEach(() => {
   localizer.reset();

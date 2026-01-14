@@ -1,7 +1,7 @@
 import { ContextItem, PingResult, TaskItem } from "./TaskClasses";
 import { XMLParser } from "fast-xml-parser";
 import type { ITaskAdapter } from "./ITaskAdapter";
-import { t } from "../localizer/localizer";
+import { t } from "../localizer/Localizer";
 import type { RequestUrlParam, RequestUrlResponsePromise } from "obsidian";
 
 /**
