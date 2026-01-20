@@ -10,7 +10,7 @@
   },
   "messages": {
     "server-http-error": "The server returned an error. HTTP code is {code}",
-    "service-authentication-failed-description": "Unable to authenticate. Please check your settings and verify that the username and token are correct.",
+    "service-authentication-failed-description": "Unable to authenticate. Please check your settings and verify that the username and password are correct.",
     "service-authentication-failed-header": "Authentication failed",
     "service-unreachable-description": "The service cannot be reached. Please check your settings and verify the URL is correct.",
     "service-unreachable-header": "Service unreachable"
@@ -19,11 +19,13 @@
     "open-dashboard": "Open task dashboard"
   },
   "view": {
-    "title": "Task Dashboard",
+    "btn-delete-text": "Delete",
+    "lbl-service": "Service",
     "loading-contexts": "Loading contexts...",
     "loading-tasks": "Loading tasks...",
     "no-tasks-existing": "No tasks existing",
-    "txt-add-new-task": "Add a task here. Confirm by pressing RETURN...",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "title": "Task Dashboard",
+    "txt-add-new-task": "Add a task here. Confirm by pressing RETURN..."
   }
 }

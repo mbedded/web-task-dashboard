@@ -1,3 +1,4 @@
+import de from "locales/locale.de.json";
 import en from "locales/locale.en.json";
 
 /**
@@ -7,6 +8,7 @@ import en from "locales/locale.en.json";
 export class LocalizerParser {
 
   private files: [string, object][] = [
+    ["de", de],
     ["en", en],
   ];
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { TaskItem } from "../adapters/TaskClasses";
+  import { t } from "../localizer/Localizer";
 
   interface Props {
     // The entry to display and interact with.
@@ -16,19 +17,19 @@
     deleteTask
   }: Props = $props();
 
-  let doneRunning = $state(false);
-  let deleteRunning = $state(false);
+  let isDoneRunning = $state(false);
+  let isDeleteRunning = $state(false);
 
   async function OnClickDone() {
-    doneRunning = true;
+    isDoneRunning = true;
     await markTaskAsDone(task);
-    doneRunning = false;
+    isDoneRunning = false;
   }
 
   async function OnClickDelete() {
-    deleteRunning = true;
+    isDeleteRunning = true;
     await deleteTask(task);
-    deleteRunning = false;
+    isDeleteRunning = false;
   }
 </script>
 
@@ -99,7 +100,7 @@
 
 <div class="container">
   <button type="button" class="btn-done" onclick={OnClickDone}>
-    {#if !doneRunning}
+    {#if !isDoneRunning}
       ✓
     {:else}
       <div class="spinner"></div>
@@ -107,8 +108,8 @@
   </button>
   <span class="description">{task.description}</span>
   <button type="button" class="btn-delete" onclick={OnClickDelete}>
-    {#if !deleteRunning}
-      Delete
+    {#if !isDeleteRunning}
+      {t("view.btn-delete-text")}
     {:else}
       <div class="spinner"></div>
     {/if}

@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "header-tracks-endpoint": "Tracks Endpunkt",
+    "tracks-password-description": "Ihr Passwort für den Zugriff auf Tracks. Das Token ist schreibgeschützt und hat keine Berechtigung, Aufgaben zu erstellen. Bitte beachten Sie, dass das Passwort derzeit im Klartext gespeichert wird!",
+    "tracks-password-header": "Passwort",
+    "tracks-url-description": "Basis-URL zu Tracks.",
+    "tracks-url-header": "Tracks URL",
+    "tracks-username-description": "Der Benutzername für die Anmeldung bei Tracks.",
+    "tracks-username-header": "Benutzername"
+  },
+  "messages": {
+    "server-http-error": "Der Server gab einen Fehler zurück. Der HTTP Code ist {code}",
+    "service-authentication-failed-description": "Die Authentifizierung ist fehlgeschlagen. Bitte überprüfen Sie Ihre Einstellungen und vergewissern Sie sich, dass der Benutzername und das Passwort korrekt sind.",
+    "service-authentication-failed-header": "Authentifizierung fehlgeschlagen",
+    "service-unreachable-description": "Der Dienst kann nicht erreicht werden. Bitte überprüfen Sie Ihre Einstellungen und vergewissern Sie sich, dass die URL korrekt ist.",
+    "service-unreachable-header": "Dienst nicht erreichbar"
+  },
+  "commands": {
+    "open-dashboard": "Aufgabenübersicht öffnen"
+  },
+  "view": {
+    "btn-delete-text": "Löschen",
+    "lbl-service": "Service",
+    "loading-contexts": "Kontexte werden geladen...",
+    "loading-tasks": "Aufgaben werden geladen...",
+    "no-tasks-existing": "Keine Aufgaben vorhanden",
+    "saving": "Wird gespeichert...",
+    "title": "Aufgabenübersicht",
+    "txt-add-new-task": "Fügen Sie hier eine Aufgabe hinzu. Bestätigen Sie mit der RETURN-Taste..."
+  }
+}
