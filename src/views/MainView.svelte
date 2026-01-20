@@ -32,21 +32,18 @@
     if (pingResult.isReachable == false) {
       errorHeader = t("messages.service-unreachable-header");
       errorMessage = t("messages.service-unreachable-description");
-    }
-    if (pingResult.isAuthenticated == false) {
+    } else if (pingResult.isAuthenticated == false) {
       errorHeader = t("messages.service-authentication-failed-header");
       errorMessage = t("messages.service-authentication-failed-description");
     }
-    if (pingResult.isOk() == false) {
-      loading = false;
-      hasError = true;
 
-      return;
+    // Initialize view when authentication is ok
+    if (pingResult.isOk()) {
+      contexts = await adapter.getActiveContexts();
     }
 
-    // Initialize view
-    contexts = await adapter.getActiveContexts();
     loading = false;
+    hasError = pingResult.isOk() == false;
   });
 </script>
 
