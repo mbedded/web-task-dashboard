@@ -1,9 +1,9 @@
 {
-  "id": "mbedded-tracks-plugin",
-  "name": "DEV TRACKS Plugin",
+  "id": "web-task-dashboard",
+  "name": "Web Task Dashboard",
   "version": "1.0.0",
   "minAppVersion": "1.11.0",
-  "description": "DEV version of Obsidian Tracks.",
+  "description": "Bring tasks from different providers into your Obsidian vault for easy access and management.",
   "author": "mbedded",
   "authorUrl": "https://mbuege.com",
   "fundingUrl": "https://ko-fi.com/mbedded",
