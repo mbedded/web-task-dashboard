@@ -169,7 +169,7 @@ export class TracksAdapter implements ITaskAdapter {
       return new TaskItem(newId, text);
     } catch (e) {
       // todo: handle error
-      console.error("error creating todo: " + e);
+      console.error("error creating task: " + e);
       throw e;
     }
   }

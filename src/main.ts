@@ -35,10 +35,6 @@ export default class TracksPlugin extends Plugin {
 
     // This adds a settings tab so the user can configure various aspects of the plugin
     this.addSettingTab(new SettingTab(this.app, this));
-
-    // todo: add background checks for new todos in the background? Maybe only if window is open?
-    // When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-    // this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
   }
 
   private registerCommands() {
