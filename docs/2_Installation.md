@@ -1,0 +1,32 @@
+---
+title: Installation
+description: "Installation of Web Rask Dashboard in Obsidian"
+nav_order: 2
+---
+
+# Installation
+{: .no_toc }
+
+## Table of Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+To install the plugin in Obsidian, use one of the following methods:
+
+## Installation via Community Plugins
+
+{: .warning }
+> As of writing this documentation, the plugin is not listed in the official plugin repository yet.
+> The documentation will be updated as soon as the plugin is available.
+
+## Manual installation
+
+- Open the [latest release](https://github.com/mbedded/obsidian-web-task-dashboard/releases/latest) of this plugin.
+- Download the files.
+- Open your vault via file-explorer.
+- Create a plugin folder like `.obsidian/plugins/web-task-dashboard`.
+- Copy the downlaoded files into the plugin folder (`web-task-dashboard`).
+- Open the community plugins in Obsidian using `Settings > Community plugins`.
+- Enable the community plugins if needed. Refresh the plugins and activate _Web Task Dashboard_.
