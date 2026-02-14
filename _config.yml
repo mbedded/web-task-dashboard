@@ -30,6 +30,7 @@ twitter_username:
 github_username:  mbedded
 
 # Build settings
+remote_theme: just-the-docs/just-the-docs
 theme: just-the-docs
 plugins:
   - jekyll-feed

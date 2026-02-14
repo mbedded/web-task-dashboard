@@ -10,7 +10,7 @@ source "https://rubygems.org"
 gem "jekyll", "~> 4.4.1"
 
 # Theme
-gem "just-the-docs", "~> 0.12.0"
+gem "just-the-docs"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
