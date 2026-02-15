@@ -38,3 +38,16 @@ If you encounter an issue, please check the [existing issues in this project](ht
 The same applies if you're missing a feature.
 Please review the project and consider contributing to it.
 Take a look into the [contribution guide](https://github.com/mbedded/obsidian-web-task-dashboard?tab=contributing-ov-file#contributing).
+
+## Support this project
+
+If you appreciate my work on this project and want to support its continued development,
+I would love to hear your contributions or feedback!
+You can also support me through Ko-fi.
+Your help makes a difference!
+
+<a href='https://ko-fi.com/U7U8IIH8F' target='_blank'>
+<img style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' alt='Buy Me a Coffee at ko-fi.com' />
+</a>
+
+Thank you for considering it!
