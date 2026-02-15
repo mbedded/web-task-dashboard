@@ -24,9 +24,9 @@ To install the plugin in Obsidian, use one of the following methods:
 ## Manual installation
 
 - Open the [latest release](https://github.com/mbedded/obsidian-web-task-dashboard/releases/latest) of this plugin.
-- Download the files.
+- Download the files (`main.js`, `manifest.json`).
 - Open your vault via file-explorer.
 - Create a plugin folder like `.obsidian/plugins/web-task-dashboard`.
-- Copy the downlaoded files into the plugin folder (`web-task-dashboard`).
+- Copy the downloaded files into the plugin folder (`web-task-dashboard`).
 - Open the community plugins in Obsidian using `Settings > Community plugins`.
 - Enable the community plugins if needed. Refresh the plugins and activate _Web Task Dashboard_.
