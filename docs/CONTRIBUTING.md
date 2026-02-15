@@ -20,7 +20,7 @@ We want to avoid duplicates and keep the issues as clean as possible.
 - Push the changes and create a PR.
 - Use a meaningful title for the PR like `fix: handle case XY when doing TASK`.
   Please ensure that the origin (issue) is linked like in the following screenshot.
-![Example screesnhot of contribution](./img/contribute_example_pr.png)
+![Example screenshot of contribution](/docs/img/contribute_example_pr.png)
 - If you want to add additional information or questions about your PR, feel free to add them.
 
 Additional information can be found in the GitHub-Guide: 
