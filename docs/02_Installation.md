@@ -17,9 +17,9 @@ To install the plugin in Obsidian, use one of the following methods:
 
 ## Installation via Community Plugins
 
-{: .warning }
-> As of writing this documentation, the plugin is not listed in the official plugin repository yet.
-> The documentation will be updated as soon as the plugin is available.
+{: .note }
+> As of this writing, the plugin is not listed in the official plugin repository yet.
+> The documentation will be updated as soon as the plugin becomes available.
 
 ## Manual installation
 

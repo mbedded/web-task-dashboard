@@ -29,11 +29,18 @@ This step has to be done only once.
 
 ## Setup plugin in Obsidian
 
-TODO: How to configure the plugin.
+Open the settings in Obsidian and select the entry labeled "Web Task Dashboard".
+This entry is located at the bottom under "Community Plugins".
+
+Insert the address, username and password (or token) like in the screenshot below:
+
+![Settings for Tracks in Obsidian](./img/tracks-settings.webp)
+
+
 
 {: .warning }
-> As of 2026-02-14 the latest GTD-release with a number (instead of `latest`) is `tracksapp/tracks:2.7.1`.
+> As of 2026-02-14, the latest GTD release with a specific version number is `tracksapp/tracks:2.7.1`.
 > In this version, the token is read-only.
-> If you are using v2.7.1 or another version - where tasks are readonly - you must use your password in Obsidian instead of the token.
-> **In the first version of this plugin, the password is stored in plain-text!**
-> Please take a look into [issue-10](https://github.com/mbedded/obsidian-web-task-dashboard/issues/10) for details.
+> If you are using version 2.7.1 or any other version where tasks are read-only, you must use your password in Obsidian instead of the token.
+> **In the first version of this plugin, the password is stored in plain text!**
+> For more details, please refer to [this issue in GitHub](https://github.com/mbedded/obsidian-web-task-dashboard/issues/10).
