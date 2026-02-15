@@ -3,7 +3,7 @@
   "name": "Web Task Dashboard",
   "version": "1.0.0",
   "minAppVersion": "1.11.0",
-  "description": "Integrates your tasks from web services into Obsidian, allowing you to stay in Obsidian without distraction.",
+  "description": "Integrate tasks from external services directly into your workspace to minimize distractions.",
   "author": "mbedded",
   "authorUrl": "https://mbuege.com",
   "fundingUrl": "https://ko-fi.com/mbedded",
