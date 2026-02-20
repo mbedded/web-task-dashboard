@@ -74,6 +74,6 @@ export default class TracksPlugin extends Plugin {
     }
 
     // "Reveal" the leaf in case it is in a collapsed sidebar
-    await workspace.revealLeaf(leaf!);
+    await workspace.revealLeaf(leaf);
   }
 }
