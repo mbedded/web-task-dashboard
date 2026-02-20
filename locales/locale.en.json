@@ -5,6 +5,7 @@
     "tracks-password-header": "Password",
     "tracks-url-description": "Base URL of your instance of Tracks.",
     "tracks-url-header": "Tracks URL",
+    "tracks-url-placeholder": "http://localhost:3000",
     "tracks-username-description": "Your username to access Tracks.",
     "tracks-username-header": "Username"
   },

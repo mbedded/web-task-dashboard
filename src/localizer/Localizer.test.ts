@@ -5,7 +5,7 @@ beforeEach(() => {
   localizer.reset();
 })
 
-test("get singleton instance expect both instances are the same", async () => {
+test("get singleton instance expect both instances are the same", () => {
   const instance1 = localizer;
   const instance2 = localizer;
 

@@ -25,8 +25,8 @@ export default class TracksPlugin extends Plugin {
       }
     );
 
-    this.addRibbonIcon("square-check-big", t("commands.open-dashboard"), () => {
-      this.activateView();
+    this.addRibbonIcon("square-check-big", t("commands.open-dashboard"), async () => {
+      await this.activateView();
     });
 
     await this.loadSettings();
@@ -41,8 +41,8 @@ export default class TracksPlugin extends Plugin {
     this.addCommand({
       id: "open-dashboard",
       name: t("commands.open-dashboard"),
-      callback: () => {
-        this.activateView();
+      callback: async () => {
+        await this.activateView();
       }
     });
   }
@@ -61,7 +61,7 @@ export default class TracksPlugin extends Plugin {
   async activateView() {
     const {workspace} = this.app;
 
-    let leaf: WorkspaceLeaf | null = null;
+    let leaf: WorkspaceLeaf | null;
     const leaves = workspace.getLeavesOfType(VIEW_TYPE_MAIN);
 
     if (leaves.length > 0) {
